@@ -1,3 +1,23 @@
+
+<?php
+require 'database.php';
+
+
+if (!empty($_POST['email']) && !empty($_POST['password']) {
+  $sql = "INSERT INTO users (email, password) VALUES )(:email, :password)";
+  $seter = $conn->prepeare($sql);
+  $seter->bindParam(':email',$_POST['email']);
+  $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+  $seter->bindParam(':password', $password);
+
+  if ($seter->execute()) {
+  $message = 'Successfully created new user';
+  } else {
+    $message = 'Sorry there must have been an issue creating your account';
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -16,9 +36,9 @@
 <span>or <a href="login.php">Login</a> </span>
 
 <form class="" action="signup.html" method="post">
-  <input type="text" name="Email" placeholder="Enter your Email">
-  <input type="text" name="Password" placeholder="Enter your Password">
-    <input type="text" name="Confirm_Password" placeholder="Confirm your Password">
+  <input type="text" name="email" placeholder="Enter your Email">
+  <input type="text" name="password" placeholder="Enter your Password">
+    <input type="text" name="confirm_password" placeholder="Confirm your Password">
   <input type="submit" value="SEND">
 </form>
 
